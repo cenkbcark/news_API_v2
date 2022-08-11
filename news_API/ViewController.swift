@@ -77,8 +77,12 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: url)
                 if data == nil {
-                    print("data nil")
-                    return
+                    //Default image for non-image news
+                   let url = URL(string: "https://www.creativefabrica.com/wp-content/uploads/2018/12/Breaking-News-Vector-Illustration-by-indostudio-580x386.jpg")!
+                    DispatchQueue.main.async {
+                        let defaultData = try? Data(contentsOf: url)
+                        cell.newsImageView.image = UIImage(data: defaultData!)
+                    }
                 }else{
                     DispatchQueue.main.async {
                         cell.newsImageView.image = UIImage(data: data!)
